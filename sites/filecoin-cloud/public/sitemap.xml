@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://filecoin.cloud/</loc><priority>1.0</priority></url>
+  <url><loc>https://filecoin.cloud/agents</loc><priority>0.8</priority></url>
+  <url><loc>https://filecoin.cloud/service-providers</loc><priority>0.8</priority></url>
+  <url><loc>https://filecoin.cloud/warm-storage-service</loc><priority>0.8</priority></url>
+  <url><loc>https://filecoin.cloud/privacy-policy</loc><priority>0.8</priority></url>
+  <url><loc>https://filecoin.cloud/terms-of-use</loc><priority>0.8</priority></url>
+</urlset>
