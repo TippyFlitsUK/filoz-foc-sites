@@ -35,9 +35,16 @@ npm run deploy
 
 1. Add the site source to `sites/<name>/`
 2. The build script auto-detects: next.config.ts (Next.js), vite.config.ts (Vite), or index.html (static)
-5. For Vite SPAs, add a `spa-routes.json` listing client-side routes -- the build script copies index.html into each route dir for IPFS fallback
 3. Add a `build:<name>` and `deploy:<name>` script to root package.json
 4. Keep the upstream fork for syncing changes
+5. For Vite SPAs, add a `spa-routes.json` listing client-side routes -- the build script copies index.html into each route dir for IPFS fallback
+
+## Deploy
+
+Required env vars for `npm run deploy`:
+- `NOVA_SESSION_KEY` -- session key for FOC uploads
+- `NOVA_WALLET_ADDRESS` -- wallet that created the session key
+- `NOVA_PROVIDER_ID=1` -- ezpdpz-main (omitting this picks a random provider)
 
 ## Key Patterns
 
@@ -52,3 +59,10 @@ npm run deploy
 - Next.js sites MUST use `output: 'export'` and `images: { unoptimized: true }`
 - Never add server-side API routes -- everything must work as static files
 - Test with `npx serve out/` (or equivalent) before deploying to verify static behavior
+
+## Gotchas
+
+- pdp-explorer requires `.env` with Goldsky subgraph config -- see `.env.example`
+- Vite SPA routes 404 on IPFS without `spa-routes.json` -- IPFS has no server-side fallback
+- Next.js dynamic route handlers (robots.ts, sitemap.ts) fail with `output: 'export'` -- use static files in `public/` instead
+- Sites are directory copies, not git subtrees -- upstream updates require manual merge
