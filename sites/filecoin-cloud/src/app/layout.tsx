@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 
-import type { Metadata, Viewport } from 'next'
+import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 import { DEFAULT_METADATA, META_TITLE, META_DESCRIPTION } from '@/constants/site-metadata'

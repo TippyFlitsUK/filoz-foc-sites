@@ -4,7 +4,7 @@ Monorepo for FilOz websites hosted on Filecoin Onchain Cloud (FOC).
 
 ## Architecture
 
-Each site lives under `sites/` as its own directory with its own build tooling (Next.js, Hugo, vanilla HTML). The `shared/` directory contains framework-agnostic build and deploy scripts that auto-detect the site type.
+Each site lives under `sites/` as its own directory with its own build tooling (Next.js, Vite, vanilla HTML). The `shared/` directory contains framework-agnostic build and deploy scripts that auto-detect the site type.
 
 ## Sites
 
@@ -34,7 +34,8 @@ npm run deploy
 ## Adding a New Site
 
 1. Add the site source to `sites/<name>/`
-2. The build script auto-detects: package.json (npm), hugo.toml/hugo.yaml (Hugo), or index.html (static)
+2. The build script auto-detects: next.config.ts (Next.js), vite.config.ts (Vite), or index.html (static)
+5. For Vite SPAs, add a `spa-routes.json` listing client-side routes -- the build script copies index.html into each route dir for IPFS fallback
 3. Add a `build:<name>` and `deploy:<name>` script to root package.json
 4. Keep the upstream fork for syncing changes
 

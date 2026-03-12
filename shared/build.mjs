@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { execSync } from 'node:child_process'
-import { readdirSync, existsSync } from 'node:fs'
+import { readdirSync, readFileSync, existsSync, copyFileSync, mkdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
 const sitesDir = resolve(import.meta.dirname, '..', 'sites')
@@ -52,6 +52,21 @@ function buildSite(name) {
   }
 
   const outputDir = resolve(siteDir, config.output)
+
+  // For Vite SPAs: copy index.html into each route directory for IPFS fallback
+  // (IPFS has no server-side SPA routing -- each path needs a literal file)
+  const spaRoutes = join(siteDir, 'spa-routes.json')
+  if (existsSync(spaRoutes)) {
+    const routes = JSON.parse(readFileSync(spaRoutes, 'utf8'))
+    const srcIndex = join(outputDir, 'index.html')
+    for (const route of routes) {
+      const dir = join(outputDir, route)
+      mkdirSync(dir, { recursive: true })
+      copyFileSync(srcIndex, join(dir, 'index.html'))
+      console.log(`  SPA fallback: ${route}/index.html`)
+    }
+  }
+
   console.log(`Build output: ${outputDir}`)
   return outputDir
 }
